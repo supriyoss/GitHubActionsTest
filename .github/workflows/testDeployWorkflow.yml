@@ -4,20 +4,19 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  id-token: write        # 🔴 REQUIRED for OIDC
+  contents: read
 
 jobs:
   download-blob:
     runs-on: ubuntu-latest
-
-    # 🔴 REQUIRED: link the job to the environment
-    environment: dev   # <-- must match your environment name exactly
+    environment: dev   # must match the environment name
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Azure Login (Client Secret)
+      - name: Azure Login (OIDC)
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
