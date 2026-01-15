@@ -25,7 +25,7 @@ jobs:
       - name: Download file from $web container
         run: |
           az storage blob download \
-            --account-name mystorageaccount \
+            --account-name cdnwallet \
             --container-name '$web' \
             --name config/readme.txt \
             --file readme.txt \
