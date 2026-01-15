@@ -25,21 +25,11 @@ jobs:
 
       - name: Download file from $web container
         run: |
-          environment="dev"
-          UIVers="v2"
-          STORAGE=$(gh api "/repos/${{ github.repository }}/environments/${environment}/variables/CDN_STORAGE_ACC_NAME" --jq '.value' 2>/dev/null || echo "")
-          echo "Retrieved STORAGE account name: $STORAGE"
-
-          if [ -z "$STORAGE" ]; then
-            echo "Error: Could not retrieve CDN_STORAGE_ACC_NAME variable"
-            exit 1
-          fi
-          
-          DEPLOY_JSON_PATH="config/${UIVers}/readme.txt"
+          # DEPLOY_JSON_PATH="config/${UIVers}/readme.txt"
           az storage blob download \
-            --account-name "$STORAGE" \
+            --account-name cdnwallet \
             --container-name '$web' \
-            --name "$DEPLOY_JSON_PATH" \
+            --name readme.txt \
             --file readme.txt \
             --auth-mode login
         env:
