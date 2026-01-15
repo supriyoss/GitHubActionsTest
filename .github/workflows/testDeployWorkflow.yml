@@ -28,6 +28,7 @@ jobs:
           environment="dev"
           UIVers="v2"
           STORAGE=$(gh variable get CDN_STORAGE_ACC_NAME --env "$environment" 2>/dev/null || echo "")
+          echo "Retrieved STORAGE account name: $STORAGE"
           
           if [ -z "$STORAGE" ]; then
             echo "Error: Could not retrieve CDN_STORAGE_ACC_NAME variable"
